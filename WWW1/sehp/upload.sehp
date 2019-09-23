@@ -1,0 +1,15 @@
+<html>
+	<header>
+	</header>
+	<body>
+		<#sehp language="C++"
+			#include "sehp.h"
+			int main(int argc,char *argv[])
+			{
+				sehp test(argc,argv);
+				cout << test.SaveFile("upload-file","test.xls","D:\\CHP\\Code\\Version-Public-1\\WWW\\asset") << endl;
+				return 0;
+			}
+		#>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+{
+    "ReStartTimeOut": "10",
+    "LogRoot": "D:\\CHP\\Code\\Version-Public-1\\Log",
+    "LogLevel": "PRINT",
+    "LogMaxSize": "512",
+    "UploadMaxSize":"10",
+    "SEPHWorkFolder": "D:\\CHP\\Code\\Version-Public-1\\SEHPWorkFolder",
+    "AllWeb": [
+        {
+            "Root": "D:\\CHP\\Code\\Version-Public-1\\WWW",
+            "Asset": "asset",
+            "Defaults":["index.html","index.htm","index.sehp"],
+            "Port": "88",
+            "HttpsPort":"443",
+            "CertFile":"D:\\CHP\\Code\\Version-Public-1\\WebServer\\server.crt",
+            "KeyFile":"D:\\CHP\\Code\\Version-Public-1\\WebServer\\server.key",
+            "EnableAdmin":"True",
+            "Plug":"D:\\CHP\\Code\\Version-Public-1\\Plug\\Upload.exe",
+            "Domain": [
+                "127.0.0.1",
+                "192.168.31.154"
+            ]
+        }
+    ]
+}

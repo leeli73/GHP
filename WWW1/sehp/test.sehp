@@ -1,0 +1,15 @@
+<html>
+	<header>
+	</header>
+	<body>
+		<#sehp language="C++"
+			#include "sehp.h"
+			int main()
+			{
+				sehp test;
+				cout << test.GetFrom("test") << endl;
+				return 0;
+			}
+		#>
+	</body>
+</html>

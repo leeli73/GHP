@@ -1,0 +1,131 @@
+﻿<html>
+#CHPX超级拓展超文本预处理器-Chinese Hypertext Preprocessor X
+#Development Edition Version 0.0.1
+#! 字符集=UTF-8 !#
+    <header>
+        <title>CHPX测试Demo</title>
+    </header>
+    <body>
+        <#chpx language="C++" src="test.cpp"
+            #include "chpxlib.h"
+            #include "time.h"
+            void QuickSort(int a[], int low, int high);
+            void BubbleSort(int  *p, int length);
+            int arr[5000];
+            int main(int argc, char ** argv)
+            {
+                Request myRequest(argc,argv,METHOD2UPPER);
+                cout << "你的浏览器信息为:" << myRequest.UserAgrnt << "<br>" << endl;
+                cout << "你访问的URL为:" << myRequest.Url << "<br>" << endl;
+                cout << "你的访问方式为:" << myRequest.Method << "<br>" << endl;
+                if (myRequest.isSet(FROM, "chpx"))
+                {
+                    cout << "检测到表单中存在chpx,对应的值为:" << myRequest.Froms["chpx"] << "<br>" << endl;
+                }
+                else
+                {
+                    cout << "检测到表单中不存在chpx<br>"<< endl;
+                }
+                cout<<"表单测试:"<<endl;
+                cout << "<form action=\"demo.chpx\" method=\"POST\">" << endl;
+                cout << "chpx的值:<br><input type=\"text\" name=\"chpx\" value=\"Test\"><br>" << endl;
+                cout << "<input type=\"submit\" value=\"提交\">" << endl;
+                cout << "</form>" << endl;
+                cout << "<a href=\"demo.chpx.txt\">查看源码</a><br>" << endl;
+                cout << "<a href=\"demo.chpx?type=bubble\">冒泡排序</a><br>" << endl;
+                cout << "<a href=\"demo.chpx?type=fast\">快速排序</a><br>" << endl;
+                cout << "性能测试:默认使用快排排序5000个随机数(真正原生C++的性能)输入Get参数type=bubble切换为冒泡排序,删除参数或type=fast为快速排序<br>" << endl;
+                srand((unsigned)time(NULL));
+                cout << "原始数据:" << endl;
+                for (int i = 0; i < 5000; i++)
+                {
+                    arr[i] = rand()%10000;
+                    cout << arr[i] << ",";
+                    if (i % 10 == 0)
+                    {
+                        cout << "<br>";
+                    }
+                }
+                cout <<"<br>"<< endl;
+                clock_t start = clock();
+                QuickSort(arr, 0, 4999);
+                if (myRequest.isSet(FROM, "type"))
+                {
+                    if (myRequest.Froms["type"] == string("fast"))
+                    {
+                        QuickSort(arr, 0, 4999);
+                    }
+                    else if(myRequest.Froms["type"] == string("bubble"))
+                    {
+                        BubbleSort(arr, 1000);
+                    }
+                    else
+                    {
+                        cout << "<script>alert(\"未知的排序方式!\")</script>" << endl;
+                    }
+                }
+                else
+                {
+                    QuickSort(arr, 0, 4999);
+                }
+                clock_t finish = clock();
+
+                cout << "排序后数据:" << endl;
+                for (int i = 0; i < 5000; i++)
+                {
+                    cout << arr[i] << ",";
+                    if (i % 10 == 0)
+                    {
+                        cout << "<br>";
+                    }
+                }
+                cout << "<br>" << endl;
+                double consumeTime = (double)(finish - start) / CLOCKS_PER_SEC;
+                cout << "程序运行时长:" << consumeTime << "秒<br>" << endl;
+                return 0;
+            }
+            int Partition(int a[], int low, int high)
+            {
+                int x = a[high];
+                int i = low - 1;
+                for (int j = low; j < high; j++)
+                {
+                    if (a[j] < x)
+                    {
+                        int temp;
+                        i++;
+                        temp = a[i];
+                        a[i] = a[j];
+                        a[j] = temp;
+                    }
+                }
+                a[high] = a[i + 1];
+                a[i + 1] = x;
+                return i + 1;
+            }
+            void QuickSort(int a[], int low, int high)
+            {
+                if (low < high)
+                {
+                    int q = Partition(a, low, high);
+                    QuickSort(a, low, q - 1);
+                    QuickSort(a, q + 1, high);
+                }
+            }
+            void BubbleSort(int  *p, int length)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10 - i - 1; j++)
+                    {
+                        if (p[j] > p[j + 1])
+                        {
+                            swap(p[j], p[j + 1]);
+                        }
+                    }
+                }
+            }
+
+        #>
+    </body>
+</html>

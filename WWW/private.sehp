@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container"> <a class="navbar-brand" href="index.html">
+        <i class="fa d-inline fa-lg fa-circle-o"></i>
+        <b>SEHP资源共享平台</b>
+      </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar11" style="">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar11">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link" href="public.sehp">公共资源</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="private.sehp">我的资源</a> </li>
+          </ul>
+          <ul class="navbar-nav ml-auto" id="mynavbar">
+            <li class="nav-item"> <a class="nav-link" href="myupload.sehp">我的上传</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="info.sehp">我的信息</a> </li>
+          </ul> <a class="btn btn-primary navbar-btn ml-md-2" onclick="javascript:$('#myModal').modal()">上传文件</a>
+        </div>
+    </div>
+  </nav>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><b>我的资源</b></h5>
+              <ul class="list-group">
+                <#sehp language="C++"
+                    #include <iostream>
+                    #include <string>
+                    #include "sehp.h"
+                    using namespace std;
+                    int main(int argc,char *argv[])
+                    {
+                        sehp PrivateList(argc,argv);
+                        string Keyt = PrivateList.GetCookies("Keyt");
+                        string SEPHWorkFolder = PrivateList.GetSEPHWorkFolder();
+                        string Command = SEPHWorkFolder+"\\Executable\\UserDefined\\PrivateList\\main.exe -username "+Keyt;
+                        system(Command.c_str());
+                        cout<<endl;
+                        exit(0);
+                        return 0;
+                    }
+                #>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><b>我的留言</b></h5>
+              <form class="form-inline">
+                <select class="form-control w-100" id="MessageTo">
+                  <#sehp language="C++"
+                    #include <iostream>
+                    #include <string>
+                    #include "sehp.h"
+                    using namespace std;
+                    int main(int argc,char *argv[])
+                    {
+                        sehp UserList(argc,argv);
+                        string Keyt = UserList.GetCookies("Keyt");
+                        string SEPHWorkFolder = UserList.GetSEPHWorkFolder();
+                        string Command = SEPHWorkFolder+"\\Executable\\UserDefined\\GetSelectUser\\main.exe -username "+Keyt;
+                        system(Command.c_str());
+                        cout<<endl;
+                        exit(0);
+                        return 0;
+                    }
+                #>
+                </select><br><br>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="请输入留言" id="Message">
+                  <div class="input-group-append"><button class="btn btn-primary" type="button" onclick="SubmitMess()">提交留言</button></div>
+                </div>
+              </form>
+              <br>
+              <div class="list-group">
+                <#sehp language="C++"
+                    #include <iostream>
+                    #include <string>
+                    #include "sehp.h"
+                    using namespace std;
+                    int main(int argc,char *argv[])
+                    {
+                        sehp MessageList(argc,argv);
+                        string Keyt = MessageList.GetCookies("Keyt");
+                        string SEPHWorkFolder = MessageList.GetSEPHWorkFolder();
+                        string Command = SEPHWorkFolder+"\\Executable\\UserDefined\\GetMessageList\\main.exe -username "+Keyt;
+                        system(Command.c_str());
+                        cout<<endl;
+                        exit(0);
+                        return 0;
+                    }
+                #>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 模态框 -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+   
+        <!-- 模态框头部 -->
+        <div class="modal-header">
+          <h4 class="modal-title">资源上传</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+   
+        <!-- 模态框主体 -->
+        <div class="modal-body">
+          <iframe id="upm" src="http://127.0.0.1:8199/upload/show" width="100%" scrolling="no" frameborder="no"></iframe>
+        </div>
+   
+        <!-- 模态框底部 -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+   
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js"></script>
+  <script src="https://cdn.bootcss.com/popper.js/1.14.6/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+      Check();
+      ShowWelcome();
+      function Check()
+      {
+        if(getCookie("UserName")==null || getCookie("Keyt")==null)
+        {
+          alert("请先登录！");
+          window.location = "index.html";
+        }
+      }
+      function setCookie(name,value) 
+      { 
+        var Days = 30; 
+        var exp = new Date(); 
+        exp.setTime(exp.getTime() + Days*24*60*60*1000); 
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString(); 
+      } 
+      function getCookie(name) 
+      { 
+          var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+          if(arr=document.cookie.match(reg))
+              return unescape(arr[2]); 
+          else 
+              return null; 
+      }
+      function delCookie(key) {
+        var date = new Date();
+        date.setTime(date.getTime() - 1);
+        var delValue = getCookie(key);
+        if (!!delValue) {
+            document.cookie = key+'='+delValue+';expires='+date.toGMTString();
+        }
+    }
+      function ShowWelcome()
+      {
+        if(getCookie("UserName") != null)
+        {
+          var elem_li = document.createElement('li'); // 生成一个 li元素
+          elem_li.innerHTML = '<li class="nav-item"> <a class="nav-link" href="javascript:delCookie(\'UserName\');delCookie(\'Keyt\');window.location.href=\'index.html\';" id="Welcome">欢迎您,'+getCookie("UserName")+'</a> </li>'
+          document.getElementById("mynavbar").appendChild(elem_li)
+          var ifr = document.getElementById("upm");
+          ifr.src="http://127.0.0.1:8199/upload/show?UserName="+getCookie("UserName");
+          console.log(ifr.src)
+        }
+      }
+      function SubmitMess()
+    {
+      var Message = document.getElementById("Message").value;
+      var MessageTo = document.getElementById("MessageTo");
+      var MessageToIndex = MessageTo.selectedIndex;
+      var MessageToText = MessageTo.options[MessageToIndex].text;
+      var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			  {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          {
+            var Result = trimStr(xmlhttp.responseText)
+            alert(Result);
+          }
+			  }
+		  var data = "MessageFrom="+getCookie("UserName")+"&MessageTo="+MessageToText+"&MessageDate="+Message;
+		  xmlhttp.open("POST","lib/InsertMessage.sehp",true);
+		  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		  xmlhttp.send(data);
+    }
+    function trimStr(str){
+      return str.replace(/(^\s*)|(\s*$)/g,"");
+    }
+    function Delete(id)
+    {
+      var xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			  {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          {
+            var Result = trimStr(xmlhttp.responseText)
+            alert(Result);
+            window.location = "private.sehp";
+          }
+			  }
+		  var data = "Keyt="+getCookie("Keyt")+"&ID="+id;
+		  xmlhttp.open("POST","lib/DeleteAsset.sehp",true);
+		  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		  xmlhttp.send(data);
+    }
+    </script>
+</body>
+
+</html>

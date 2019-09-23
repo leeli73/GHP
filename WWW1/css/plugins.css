@@ -1,0 +1,20 @@
+/*********************************************************************************
+
+	Template Name: Fixco - Multipurpose Bootstrap4 Template  
+	Template URI: https://themeforest.net/user/devitems
+	Description: Fixco is aesthetically well organized multipurpose. Comes with 6+ homepages available with multi style that easily modifiable one to another.
+	Author: Devitems
+	Author URI: https://devitems.com/
+	Version: 1.0.1
+
+	Note: This is plugins css. All plugins css files import here.
+
+**********************************************************************************/
+
+@import url(plugins/fakeloader.css);
+@import url(plugins/font-awesome.min.css);
+@import url(plugins/bicon.min.css);
+@import url(plugins/slick.min.css);
+@import url(plugins/magnific-popup.min.css);
+@import url(plugins/meanmenu.css);
+@import url(plugins/nice-select.css);
